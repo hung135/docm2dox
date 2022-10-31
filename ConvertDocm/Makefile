@@ -13,5 +13,8 @@ publish: win10
 	dotnet publish -r linux-x64 --self-contained true
 	dotnet publish -r win10-x64 --self-contained true
 
+publish_debug: win10
+	dotnet publish -r linux-x64 --self-contained false
+	dotnet publish -r win10-x64 --self-contained false
 test:
 	/workspace/ConvertDocm/bin/Debug/net6.0/linux-x64/ConvertDocm
