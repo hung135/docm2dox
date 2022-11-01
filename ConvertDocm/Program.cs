@@ -33,9 +33,28 @@ class Program {
     public static void ConvertDOCMtoDOCX(string fileName,string outFile)
     {
         bool fileChanged = false;
+        
+        //backup the file
+        try
+        {
+            // Will not overwrite if the destination file already exists.
+            Console.WriteLine(outFile);
+            File.Copy(fileName, outFile,true);
+            
+             
+        }
 
+        // Catch exception if the file was already copied.
+        catch (IOException copyError)
+        { 
+            Console.WriteLine(copyError.Message);
+             
+        }
+
+        Console.WriteLine(fileName);
         using (WordprocessingDocument document = 
-            WordprocessingDocument.Open(fileName, true))
+            WordprocessingDocument.Open( outFile, true))
+
         {
             // Access the main document part.
             var docPart = document.MainDocumentPart;
@@ -71,7 +90,7 @@ class Program {
             // Create the new .docx filename.
             var newFileName = Path.ChangeExtension(outFile, ".docx");
             Console.Clear();
-            Console.WriteLine("Standard Numeric Format Specifiers");
+            Console.WriteLine("File Was Changed");
             // If it already exists, it will be deleted!
             if (File.Exists(newFileName))
             {
@@ -80,6 +99,7 @@ class Program {
 
             // Rename the file.
             File.Move(fileName, newFileName);
+            
         }
     }
 }

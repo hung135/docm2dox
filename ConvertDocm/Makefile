@@ -1,6 +1,8 @@
  
 run:
-	dotnet run ./example.docm ./output.docx
+	#dotnet run ./example.docm ./output.docx
+	rm *.docm -f
+	cp ../ChangeBeforePrinting.docm ./
 	dotnet run ./ChangeBeforePrinting.docm ./output.docx
 win10: clean
 	dotnet build -r win10-x64
