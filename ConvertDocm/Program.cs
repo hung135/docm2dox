@@ -7,26 +7,30 @@ class Program {
 
     static void Main(string[] args) {
         //string filename = @"C:\Users\Public\Documents\WithMacros.docm";
-        string filename = @"./example.docm";
-        if (args.Length>0)
+        string filename = "";
+        string outfile = "";
+        if (args.Length>1)
         {
 
         Console.Clear();
         Console.WriteLine("Start");
-        Console.WriteLine(args[0]);
         filename=args[0];
+        outfile=args[1];
+        filename = Path.GetFullPath(filename);
+        outfile = Path.GetFullPath(outfile);
         Console.WriteLine(filename);
-        ConvertDOCMtoDOCX(filename);
+        Console.WriteLine(outfile);
+        ConvertDOCMtoDOCX(filename,outfile);
         Console.WriteLine("End");
         }
         else{
-            Console.WriteLine("Please provide path to DOCM file");
+            Console.WriteLine("Please provide path to DOCM file and output file name");
         }
 
                    
     }
 
-    public static void ConvertDOCMtoDOCX(string fileName)
+    public static void ConvertDOCMtoDOCX(string fileName,string outFile)
     {
         bool fileChanged = false;
 
@@ -56,7 +60,7 @@ class Program {
             }
             else 
             {
-            Console.WriteLine("No VBA found");
+                Console.WriteLine("No VBA found");
             }
         }
 
@@ -65,7 +69,7 @@ class Program {
         if (fileChanged)
         {
             // Create the new .docx filename.
-            var newFileName = Path.ChangeExtension(fileName, ".docx");
+            var newFileName = Path.ChangeExtension(outFile, ".docx");
             Console.Clear();
             Console.WriteLine("Standard Numeric Format Specifiers");
             // If it already exists, it will be deleted!
